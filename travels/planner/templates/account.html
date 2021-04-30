@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+    <div>
+        <h1 id="editaccount">Account</h1>
+
+        <button id="logout"><a href="/logout">Log Out</a></button>
+        <p id="back"><a href="/quotes">Back</a></p>
+        <p class="nav"><a href="#">Home</a></p>
+        <p class="nav"><a href="#">Dashboard</a></p>
+        <p class="nav"><a href="#">List</a></p>
+        <p class="nav"><a href="#">Planner</a></p>
+
+        {% if messages %}
+        <ul class="messages">    
+            {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="/myaccount/{{ user.id }}/update" method="POST">
+            {% csrf_token %}
+            <p>First Name: <input type="text" name="first_name" value="{{ user.first_name }}"></p>
+            <p>Last Name: <input type="text" name="last_name" value="{{ user.last_name }}"></p>
+            <p>Email: <input type="email" name="email" value="{{ user.email }}"></p>
+            <button type="submit">Update</button>
+        </form>
+
+    </div>
+
+</body>
+</html>
