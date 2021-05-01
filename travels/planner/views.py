@@ -32,7 +32,7 @@ def register(request):
             )
             request.session["userid"] = new_user.id
 
-            return redirect("/quotes")
+            return redirect("/")
         
     return redirect("/")
 
@@ -44,7 +44,7 @@ def login(request):
         logged_user = user[0]
         if bcrypt.checkpw(request.POST["password"].encode(), logged_user.password.encode()):
             request.session["userid"] = logged_user.id
-            return redirect("/quotes")
+            return redirect("/")
         else:
             messages.error(request, "We don't recognize that email address and/or password.")
     else:
