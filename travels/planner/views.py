@@ -7,10 +7,52 @@ import re
 def index(request):
     return render(request, 'login.html')
 
-#TODO need register function
-#TODO need login check function
-#TODO save the logged user in session
-#TODO need log out function
+def register(request):
+    if request.method == "POST":
+        errors = User.objects.basic_validator(request.POST)
+        
+        if User.objects.filter(email = request.POST["email"]):
+            messages.error(request, "Email is already registered and can be used to login!")
+            return redirect("/")
+            
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect("/")
+        
+        else:
+            password = request.POST["password"]
+            password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+            new_user = User.objects.create(
+                first_name = request.POST["first_name"],
+                last_name = request.POST["last_name"],
+                email = request.POST["email"],
+                password = password_hash,
+            )
+            request.session["userid"] = new_user.id
+
+            return redirect("/")
+        
+    return redirect("/")
+
+def login(request):
+    user = User.objects.filter(
+        email=request.POST["email"]
+    )
+    if user:
+        logged_user = user[0]
+        if bcrypt.checkpw(request.POST["password"].encode(), logged_user.password.encode()):
+            request.session["userid"] = logged_user.id
+            return redirect("/")
+        else:
+            messages.error(request, "We don't recognize that email address and/or password.")
+    else:
+        messages.error(request, "We don't recognize that email address and/or password.")
+    return redirect("/")
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')
 
 def edit(request, user_id):
     context = {
