@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Lists</h1>
+    <form action="{% url 'bucketlist/create_location' list_id %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="location_name" class="form-label my-2">Location Name:</label>
+            <div>
+            <input type="text" id="location_name" class="form-label" name="location_name">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add this Location to Your List</button>
+    </form>
+</div>
+{% endblock content %}
