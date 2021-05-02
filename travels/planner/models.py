@@ -1,7 +1,6 @@
 from django.db import models
 import re
 
-# Create your models here.
 class UserManager(models.Manager):
     
     def basic_validator(self, postData):
@@ -27,5 +26,18 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
     objects = UserManager()
+
+class Plan(models.Model):
+    name = models.CharField(max_length=255)
+    the_user = models.ForeignKey(User, related_name="plans", on_delete= models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+
+class Activity(models.Model):
+    name = models.CharField(max_length=255)
+    the_plan = models.ForeignKey(Plan, related_name="activities", on_delete= models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+

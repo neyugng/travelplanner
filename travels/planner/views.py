@@ -4,9 +4,13 @@ from .models import *
 import bcrypt
 import re
 
-# Create your views here.
 def index(request):
     return render(request, 'login.html')
+
+#TODO need register function
+#TODO need login check function
+#TODO save the logged user in session
+#TODO need log out function
 
 def edit(request, user_id):
     context = {
@@ -44,3 +48,28 @@ def update(request, user_id):
         update_user.email = request.POST['email']
         update_user.save()
     return redirect(f"/myaccount/{user_id}")
+
+
+def add_plan(request):
+    if request.method == "POST":
+        #Plan.objects.create(name=request.POST['plan name'], the_user=User.objects.get(id=request.session['user_id']))
+        pass
+
+def get_plan(request, id):
+    '''
+    if 'user_id' in request.session:
+        context = {
+            'current_user':  User.objects.get(id=request.session['user_id']),
+            'plan' : Plan.objects.get(id=id),
+        }
+        return render(request, 'a_plan.html', context)
+    else:
+        return redirect('/')
+    '''
+    pass    
+
+def update_plan(request):
+    '''
+    
+    '''
+    pass
