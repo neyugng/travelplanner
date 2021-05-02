@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <!--Navigation bar-->
+    <div>
+        <a href="#" >Home</a>
+        <a href="#" >Dashboard</a>      
+        <a href="#" >List</a>
+        <a href="#" >Planner</a>
+        <a href="#" >Account</a>
+        <a href="#" >Login</a>
+    </div>
+
+    <div>
+        <h1> Plan</h1>
+        <a href="{% url 'new plan' %}"> Create a new plan</a>
+    </div>
+
+    <div>
+        {% for plan in plans %}
+            <a href="/get_plan/{{plan.id}}" > {{plan.name}}</a>
+            <br><br>
+        {%endfor%}
+    </div>
+    
+</body>
+</html>

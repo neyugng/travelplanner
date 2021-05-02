@@ -10,7 +10,9 @@ urlpatterns = [
     path('myaccount/<int:user_id>', views.edit),
     path('myaccount/<int:user_id>/update', views.update),
     path('dashboard', views.get_all, name='dashboard'),
-    path('add_plan', view.add_plan, name='new plan'), 
-    path('update_plan/<str:id>', view.update_plan, name='change plan'),
-    path('get_plan/<str:id>', view.get_plan, name='get plan'),
+    path('add_plan', views.add_plan, name='new plan'), 
+    path('create_plan', views.create_plan, name='create plan'), 
+    path('update_plan/<str:id>', views.update_plan),
+    path('get_plan/<str:id>', views.get_plan),
+    path('add_activity/<int:plan_id>', views.add_activity),
 ]

@@ -7,6 +7,8 @@ import re
 def index(request):
     return render(request, 'login.html')
 
+''' In register, if no error message, it should create a new user and redirect to dashboard, not to login page.
+(line 36 should not go to index method, which is the login page.) '''
 def register(request):
     if request.method == "POST":
         errors = User.objects.basic_validator(request.POST)
@@ -35,6 +37,8 @@ def register(request):
         
     return redirect("/")
 
+
+''' Same here, after verify the authentication, it should redirect to dashboard or somewhere else, not index'''
 def login(request):
     user = User.objects.filter(
         email=request.POST["email"]
@@ -91,27 +95,44 @@ def update(request, user_id):
         update_user.save()
     return redirect(f"/myaccount/{user_id}")
 
+def get_all(request):
+    if 'userid' not in request.session:
+        return redirect('/')
+    else:
+        context = {
+            'plans': Plan.objects.all(),
+        }
+        return render(request, 'dashboard.html', context)
 
 def add_plan(request):
+    return render(request, 'add_plan.html')
+
+def create_plan(request):
     if request.method == "POST":
-        #Plan.objects.create(name=request.POST['plan name'], the_user=User.objects.get(id=request.session['user_id']))
-        pass
+        context= {
+            'plan' : Plan.objects.create(name=request.POST['plan_name'], the_user=User.objects.get(id=request.session['userid']))
+        }
+        return render(request, 'add_activities.html', context)
+    return redirect(request,'/created_plan')
+          
+def add_activity(request,plan_id):
+    if request.method == "POST":
+        Activity.objects.create(name=request.POST['activity'], the_plan=Plan.objects.get(id=plan_id))
+    context = {
+        'activities' : Activity.objects.filter(the_plan=Plan.objects.get(id=plan_id)),
+        'plan' : Plan.objects.get(id=plan_id)
+    }
+    return render(request, 'add_activities.html', context)
 
 def get_plan(request, id):
-    '''
-    if 'user_id' in request.session:
+    if 'userid' in request.session:
         context = {
-            'current_user':  User.objects.get(id=request.session['user_id']),
+            'current_user':  User.objects.get(id=request.session['userid']),
             'plan' : Plan.objects.get(id=id),
         }
         return render(request, 'a_plan.html', context)
     else:
         return redirect('/')
-    '''
-    pass    
 
-def update_plan(request):
-    '''
-    
-    '''
+def update_plan(request, id):    
     pass

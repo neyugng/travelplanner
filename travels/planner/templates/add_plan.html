@@ -18,16 +18,20 @@
         <a href="#" >Login</a>
     </div>
 
+    {% if messages %}
+    <ul class="messages">
+        {%for message in messages %}
+            <li {% if message.tags%} class="{{message.tags}}"{% endif %}>{{message}}</li>
+        {%endfor%}
+    </ul>
+    {%endif%}
+
     <!--Add Activity-->
-    <form action="{% url 'new plan' %}" method="POST">
+    <form action="{% url 'create plan' %}" method="POST">
         {% csrf_token %}
         <label>Plan Name</label>
-        <input type="text" name="plan name"> <br>
-        <div>
-            <input type="text" name="activity">
-            <a href="#"> New Activity</a>    
-        </div>
-        <button type="submit"> Make plan </button>
+        <input type="text" name="plan_name"> <br>
+        <button type="submit"> Create plan </button>
     </form>
 
 

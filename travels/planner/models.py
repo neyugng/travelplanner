@@ -28,6 +28,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
+
 class Plan(models.Model):
     name = models.CharField(max_length=255)
     the_user = models.ForeignKey(User, related_name="plans", on_delete= models.CASCADE)

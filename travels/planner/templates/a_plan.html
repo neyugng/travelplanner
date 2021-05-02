@@ -20,7 +20,7 @@
     <h2>{{plan.name}}</h2>
     <div>
         <a href="#" >Share</a>
-        <a href="#" >Edit</a>      
+        <a href="/update_plan/{{plan.id}}" >Edit</a>      
         <a href="#" >Delete</a>
     </div>
     {% for activity in plan.activities.all %}
