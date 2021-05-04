@@ -11,7 +11,7 @@
     <div>
         <a href="#" >Home</a>
         <a href="{% url 'dashboard' %}" >Planner</a>
-        <a href="#" >Account</a>
+        <a href="/myaccount/{{ user.id }}" >Account</a>
         <a href="#" >Login</a>
     </div>
 
