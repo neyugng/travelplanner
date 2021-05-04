@@ -10,21 +10,24 @@
     <!--Navigation bar-->
     <div>
         <a href="#" >Home</a>
-        <a href="#" >Dashboard</a>      
-        <a href="#" >List</a>
-        <a href="#" >Planner</a>
+        <a href="{% url 'dashboard'%}" >Planner</a>
         <a href="#" >Account</a>
         <a href="#" >Login</a>
     </div>
     
     <h2>{{plan.name}}</h2>
     <div>
-        <a href="#" >Share</a>
-        <a href="/update_plan/{{plan.id}}" >Edit</a>      
-        <a href="#" >Delete</a>
+        <a href="/delete_plan/{{plan.id}}" >Delete</a>
     </div>
     {% for activity in plan.activities.all %}
         <p> {{activity.name}}</p>
+        <a href="/delete_activity/{{plan.id}}/{{activity.id}}" >Delete</a>      
     {% endfor %}
+
+    <form action="/add_activity/{{plan.id}}" method="POST">
+        {% csrf_token%}
+        <input type="text" name="activity" placeholder="Activity"> <br>
+        <button type="submit"> Add activity</button>
+    </form>
 </body>
 </html>

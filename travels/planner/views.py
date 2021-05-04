@@ -7,8 +7,6 @@ import re
 def index(request):
     return render(request, 'login.html')
 
-''' In register, if no error message, it should create a new user and redirect to dashboard, not to login page.
-(line 36 should not go to index method, which is the login page.) '''
 def register(request):
     if request.method == "POST":
         errors = User.objects.basic_validator(request.POST)
@@ -37,8 +35,6 @@ def register(request):
         
     return redirect("/")
 
-
-''' Same here, after verify the authentication, it should redirect to dashboard or somewhere else, not index'''
 def login(request):
     user = User.objects.filter(
         email=request.POST["email"]
@@ -122,7 +118,7 @@ def add_activity(request,plan_id):
         'activities' : Activity.objects.filter(the_plan=Plan.objects.get(id=plan_id)),
         'plan' : Plan.objects.get(id=plan_id)
     }
-    return render(request, 'add_activities.html', context)
+    return render(request, 'a_plan.html', context)
 
 def get_plan(request, id):
     if 'userid' in request.session:
@@ -134,5 +130,16 @@ def get_plan(request, id):
     else:
         return redirect('/')
 
-def update_plan(request, id):    
-    pass
+def delete_plan(request, id):
+    if 'userid' not in request.session:
+        return redirect('/')
+    plan_del = Plan.objects.get(id = id)
+    plan_del.delete()
+    return redirect('/dashboard')
+
+def delete_activity(request, plan_id, act_id):    
+    if 'userid' not in request.session:
+        return redirect('/')
+    act_del = Activity.objects.get(id = act_id)
+    act_del.delete()
+    return redirect(f'/get_plan/{plan_id}')

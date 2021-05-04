@@ -12,7 +12,8 @@ urlpatterns = [
     path('dashboard', views.get_all, name='dashboard'),
     path('add_plan', views.add_plan, name='new plan'), 
     path('create_plan', views.create_plan, name='create plan'), 
-    path('update_plan/<str:id>', views.update_plan),
     path('get_plan/<str:id>', views.get_plan),
     path('add_activity/<int:plan_id>', views.add_activity),
+    path('delete_activity/<str:plan_id>/<str:act_id>', views.delete_activity),
+    path('delete_plan/<str:id>', views.delete_plan),
 ]
