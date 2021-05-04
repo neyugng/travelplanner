@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('planner.urls')),
+    path('bucketlist/', include('bucketlist.urls')),
 ]

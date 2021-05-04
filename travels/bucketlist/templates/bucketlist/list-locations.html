@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Bucket List Locations for {{ list_name }}</h1>
+    <h4><a class="btn btn-primary btn-sm" href="{% url 'bucketlist/index' %}">Back to Bucket Lists</a></h3>
+    <table class="table table-striped table-bordered border-dark">
+        <thead>
+            <tr>
+                <th>Location Id</th>
+                <th scope="col">Location</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for location in queryset %}
+            <tr>
+                <td>{{ location.id }}</td>
+                <td>{{ location.item }}</td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="{% url 'bucketlist/delete_location' location.id %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
