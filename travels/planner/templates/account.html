@@ -6,33 +6,45 @@
     <title>Edit Account</title>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">        
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
 
 </head>
 <body>
-    <div>
-        <h1 id="editaccount">Account</h1>
+    <div class="container-fluid">
+        <!--Navigation bar-->
+        <div class="navbar-menu-div navbar navbar-expand-lg">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>                        
+                <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Planner</a></li>
+            </ul>
+            <div>
+                <a href="/myaccount/{{ user.id }}">Account</a>
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
 
-        <button id="logout"><a href="/logout">Log Out</a></button>
+        <div class="row text-center">
+            <h1 id="editaccount">Account</h1>
 
-        <p class="nav"><a href="#">Dashboard</a></p>
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
 
-
-        {% if messages %}
-        <ul class="messages">    
-            {% for message in messages %}    
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-        <form action="/myaccount/{{ user.id }}/update" method="POST">
-            {% csrf_token %}
-            <p>First Name: <input type="text" name="first_name" value="{{ user.first_name }}"></p>
-            <p>Last Name: <input type="text" name="last_name" value="{{ user.last_name }}"></p>
-            <p>Email: <input type="email" name="email" value="{{ user.email }}"></p>
-            <button type="submit">Update</button>
-        </form>
+            <form action="/myaccount/{{ user.id }}/update" method="POST">
+                {% csrf_token %}
+                <p>First Name: <input type="text" name="first_name" value="{{ user.first_name }}"></p>
+                <p>Last Name: <input type="text" name="last_name" value="{{ user.last_name }}"></p>
+                <p>Email: <input type="email" name="email" value="{{ user.email }}"></p>
+                <button  class="btn btn-success" type="submit">Update</button>
+            </form>
+        </div>
 
     </div>
 
