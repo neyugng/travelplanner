@@ -31,9 +31,9 @@ def register(request):
             )
             request.session["userid"] = new_user.id
 
-            return redirect("/")
+            return redirect("/bucketlist")
         
-    return redirect("/")
+    return redirect("/bucketlist")
 
 def login(request):
     user = User.objects.filter(
@@ -43,7 +43,7 @@ def login(request):
         logged_user = user[0]
         if bcrypt.checkpw(request.POST["password"].encode(), logged_user.password.encode()):
             request.session["userid"] = logged_user.id
-            return redirect("/")
+            return redirect("/bucketlist")
         else:
             messages.error(request, "We don't recognize that email address and/or password.")
     else:

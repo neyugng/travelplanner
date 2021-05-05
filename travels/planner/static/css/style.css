@@ -1,0 +1,27 @@
+#registration {
+    text-align: center;
+}
+
+#login {
+    text-align: center;
+}
+
+.navbar-menu-div {
+    justify-content: space-between !important;
+}
+
+.create-plan-btn {
+    text-align: right;
+}
+
+.plan-div {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: left;
+}
+
+.edit_plan {
+    border-right: 2px solid black;
+    padding-right: 5px;
+    padding-left: 20px;
+}
