@@ -10,8 +10,16 @@
     justify-content: space-between !important;
 }
 
+.row h1{
+    color: #53588A;
+    font-family: 'Knewave', cursive;
+}
 .create-plan-btn {
     text-align: right;
+}
+
+.create-plan-btn a{
+    color: #53588A;
 }
 
 .plan-div {
@@ -19,6 +27,25 @@
     padding: 20px;
     text-align: left;
 }
+
+.item-name{
+    text-decoration: none;
+    color: #5C5A7C;
+    font-family: 'Eczar', serif;
+}
+
+.del-link{
+    text-decoration: none;
+    font-family: 'Tenali Ramakrishna', sans-serif;
+    color: #fc0069;
+
+}
+.mt-5{
+    font-family: 'Knewave', cursive;
+    color: #53588A;
+}
+
+
 
 .edit_plan {
     border-right: 2px solid black;
